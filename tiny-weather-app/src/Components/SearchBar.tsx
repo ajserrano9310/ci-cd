@@ -40,7 +40,7 @@ function SearchBar() {
             getCitiesFromCountry(inputCountry)
         }
 
-    }, [inputCountry, showModal])
+    }, [inputCountry, showModal, citiesAsync])
 
     // Function section
 
@@ -76,10 +76,14 @@ function SearchBar() {
 
             const data = await response.json();
             const temp = new Array<CityDisplayModalProps>();
-            for (let index = 0; index < data.data.length; index++) {
+
+            console.log(data.data);
+
+            for (let index = 0; index < 2; index++) {
                 const element = data.data[index];
                 temp.push({ cityName: element, value: index });
             }
+
             setCitiesAsyc(temp);
 
         } catch (error) {
@@ -102,13 +106,14 @@ function SearchBar() {
                     aria-label="countryInput"
                     aria-describedby="basic-addon1"
                 />
-                <Select options={options} />
+
             </InputGroup>
             <Modal show={showModal} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Modal heading</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
+                    <Select options={options} />
                     <Form.Select>
                         <option> Select a city </option>
                         {citiesAsync.map((x) => <option key={x.value} value={x.value}>{x.cityName}</option>)}
