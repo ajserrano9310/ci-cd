@@ -33,6 +33,8 @@ function SearchBar() {
     const handleOpen = () => setShowModal(true);
 
     const [citiesAsync, setCitiesAsyc] = useState<CityDisplayModalProps[]>([]);
+    const uri = "https://api.openweathermap.org/data/2.5/weather?lat=40.7608&lon=-111.8910&units=metric&appid=117dc4bba31cb1ddc1ceeb399015666e"
+
 
     // Use effect -- updated modal select cities
     useEffect(() => {
@@ -89,6 +91,19 @@ function SearchBar() {
         } catch (error) {
             console.error('Fetch error:', error);
         }
+    }
+
+    const getWeather = () => {
+        fetch(uri).then(
+            function (response) {
+                return response.json();
+            }
+        ).then(
+            function (responseObj) {
+                console.log(responseObj)
+
+            }
+        )
     }
 
     return (
